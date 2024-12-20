@@ -1,29 +1,27 @@
 package me.ayushdhar.ProductService.Controllers;
 
+import me.ayushdhar.ProductService.Models.Category;
 import me.ayushdhar.ProductService.Models.Product;
 import me.ayushdhar.ProductService.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-    // all CRUD APIs for product
-
     private ProductService productService;
 
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
         this.productService = productService;
     }
 
-    public Product createProduct(){
-        return null;
+    @PostMapping("")
+    public Product createProduct(@RequestBody Product product){
+        return productService.saveProduct(product);
     }
 
     @GetMapping("/{id}")
@@ -36,11 +34,24 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    public Product updateProduct(Long id){
-        return null;
+    @PatchMapping("/{id}")
+    public Product updateProduct(@PathVariable Long id, @RequestBody Product product){
+        return productService.updateProduct(id, product);
     }
 
-    public String deleteProduct(Long id){
-        return "";
+    @PutMapping("/{id}")
+    public Product replaceProduct(@PathVariable Long id, @RequestBody Product product){
+        return productService.replaceProduct(id, product);
     }
+
+    @DeleteMapping("/{id}")
+    public Product deleteProduct(@PathVariable Long id){
+        return productService.deleteProduct(id);
+    }
+
+    @GetMapping("/categories")
+    public List<Category> getAllCategories(){
+        return productService.getAllCategories();
+    }
+
 }
