@@ -1,156 +1,87 @@
-# ECommerce-Platform - Product Requirements Document (PRD) and High-Level Design (HLD)
+# Ecommerce Website - Product Requirements Document (PRD) and High-Level Design (HLD)
 
 ## Table of Contents
-1. [l](##lol)
-PRODUCT REQUIREMENTS DOCUMENT (PRD) FOR ECOMMERCE WEBSITE	1
-FUNCTIONAL REQUIREMENTS	1
-1. USER MANAGEMENT	1
-2. PRODUCT CATALOG	1
-3. CART & CHECKOUT	1
-4. ORDER MANAGEMENT	1
-5. PAYMENT	1
-6. AUTHENTICATION	1
-HIGH-LEVEL DESIGN (HLD) FOR ECOMMERCE WEBSITE	2
-ARCHITECTURE COMPONENTS	2
-1. LOAD BALANCERS (LB)	2
-FUNCTION	2
-TOOL	2
-2. API GATEWAY	2
-FUNCTION	2
-TOOL	2
-3. MICROSERVICES ARCHITECTURE	2
-3.1 USER MANAGEMENT SERVICE	2
-3.2 PRODUCT CATALOG SERVICE	2
-3.3 CART SERVICE	2
-3.4 ORDER MANAGEMENT SERVICE	2
-3.5 PAYMENT SERVICE	3
-3.6 NOTIFICATION SERVICE:	3
-4. DATABASES	3
-5. KAFKA	3
-6. CACHING WITH REDIS	3
-7. ELASTICSEARCH	3
-TYPICAL FLOW WITH KAFKA & ELASTICSEARCH INTEGRATION	4
-PART 1	4
-PART 2	4
-PART 3	4
 
- 
-Product Requirements Document (PRD) for Ecommerce Website
+1. [Functional Requirements](#functional-requirements)  
+   1.1 [User Management](#user-management)  
+   1.2 [Product Catalog](#product-catalog)  
+   1.3 [Cart & Checkout](#cart--checkout)  
+   1.4 [Order Management](#order-management)  
+   1.5 [Payment](#payment)  
+   1.6 [Authentication](#authentication)
+2. [High-Level Design (HLD)](#high-level-design-hld)  
+   2.1 [Architecture Components](#architecture-components)  
+   2.2 [Microservices](#microservices)  
+   2.3 [Database](#database)  
+   2.4 [Message Broker (Kafka)](#message-broker-kafka)  
+   2.5 [Caching (Redis)](#caching-redis)  
+   2.6 [Search and Analytics (Elasticsearch)](#search-and-analytics-elasticsearch)
+3. [Typical Flow](#typical-flow)
 
-Functional Requirements
+---
 
-1. User Management
-1.1 Registration: Allow new users to create an account using their email or social media profiles.
-1.2 Login: Users should be able to securely log in using their credentials.
-1.3. Profile Management: Users should have the ability to view and modify their profile details.
-1.4. Password Reset: Users must have the option to reset their password through a secure link.
+## Functional Requirements
 
-2. Product Catalog
-2.1. Browsing: Users should be able to browse products by different categories.
-2.2. Product Details: Detailed product pages with product images, descriptions, specifications, and other relevant information.
-2.3. Search: Users must be able to search for products using keywords.
+### 1. User Management
+- **Registration**: Allow users to register via email or social media profiles.
+- **Login**: Secure user login with credentials.
+- **Profile Management**: Enable users to view and edit their profiles.
+- **Password Reset**: Allow password resets through secure email links.
 
-3. Cart & Checkout
-3.1. Add to Cart: Users should be able to add products to their cart.
-3.2. Cart Review: View selected items in the cart with price, quantity, and total details.
-3.3. Checkout: Seamless process to finalize the purchase, including specifying delivery address and payment method.
+### 2. Product Catalog
+- **Browsing**: Users can browse products by category.
+- **Product Details**: Product pages include images, descriptions, specifications, and more.
+- **Search**: Provide search functionality with keyword-based queries.
 
-4. Order Management
-4.1. Order Confirmation: After making a purchase, users should receive a confirmation with order details.
-4.2. Order History: Users should be able to view their past orders.
-4.3. Order Tracking: Provide users with a way to track their order's delivery status.
+### 3. Cart & Checkout
+- **Add to Cart**: Users can add products to their cart.
+- **Cart Review**: View selected items with price, quantity, and totals.
+- **Checkout**: Seamless process to finalize purchases, including delivery details and payment options.
 
-5. Payment
-5.1. Multiple Payment Options: Support for credit/debit cards, online banking, and other popular payment methods.
-5.2. Secure Transactions: Ensure user trust by facilitating secure payment transactions.
-5.3. Payment Receipt: Provide users with a receipt after a successful payment.
+### 4. Order Management
+- **Order Confirmation**: Confirm orders with details after purchase.
+- **Order History**: Allow users to view past orders.
+- **Order Tracking**: Provide delivery status tracking.
 
-6. Authentication
-6.1. Secure Authentication: Ensure that user data remains private and secure during login and throughout their session.
-6.2. Session Management: Users should remain logged in for a specified duration or until they decide to log out.
+### 5. Payment
+- **Multiple Payment Options**: Support credit/debit cards, online banking, and other methods.
+- **Secure Transactions**: Ensure secure payment handling.
+- **Payment Receipt**: Generate receipts for successful payments.
 
+### 6. Authentication
+- **Secure Authentication**: Protect user data during login and active sessions.
+- **Session Management**: Allow users to stay logged in until they log out or after a specified duration.
 
-## lol 
+---
 
-High-Level Design (HLD) for Ecommerce Website 
+## High-Level Design (HLD)
 
-Architecture Components
-•	Load Balancers (LB)
-•	API Gateway
-•	Microservices
-•	Databases (Relational and NoSQL)
-•	Message Broker (Kafka)
-•	Caching (Redis)
-•	Search and Analytics (Elasticsearch)
+### Architecture Components
+- **Load Balancers (LB)**: Distribute traffic across servers for high availability (e.g., AWS ELB).
+- **API Gateway**: Entry point for routing requests, managing rate limits, and handling authentication (e.g., Kong).
+- **Microservices**: Separate services for modular and scalable architecture.
+- **Databases**: MySQL and MongoDB for structured and unstructured data.
+- **Message Broker (Kafka)**: Enable asynchronous inter-service communication.
+- **Caching (Redis)**: Boost response times for frequently accessed data.
+- **Search & Analytics (Elasticsearch)**: Efficient product searches with advanced capabilities.
 
-1. Load Balancers (LB)
-Function: Distribute incoming user requests across multiple server instances to balance load and ensure high availability.
-Tool: Amazon Elastic Load Balancing (ELB).
+---
 
-2. API Gateway
-Function: Entry point for clients. Routes requests to the right microservices, handles rate limiting, and manages authentication.
-Tool: Kong.
+## Typical Flow
 
-3. Microservices Architecture
+### Part 1: Product Search
+1. User logs in and searches for a product.
+2. Request passes through the Load Balancer to the API Gateway.
+3. API Gateway routes the search request to the Product Catalog Service.
+4. Product Catalog Service queries Elasticsearch for results.
 
-3.1 User Management Service
-•	Handles user registration, login, profile management, and password reset.
-•	Uses MySQL as the primary database for structured user data.
-•	Uses Kafka to communicate relevant user activities to other services (e.g., a new user registration event can trigger welcome emails or offers).
+### Part 2: Add to Cart
+1. User adds a product to the cart.
+2. Cart Service stores the item in MongoDB and produces a Kafka message.
 
-3.2 Product Catalog Service
-•	Manages product listings, details, categorization.
-•	Uses MySQL.
-•	Incorporates Elasticsearch for fast product searches, providing features like full-text search and typo correction.
+### Part 3: Checkout
+1. User checks out.
+2. Order Management Service processes the order and sends a Kafka message.
+3. Payment Service consumes the message to handle payment.
 
-3.3 Cart Service
-•	Manages user's shopping cart.
-•	Uses MongoDB for flexibility in cart structures.
-•	Uses Redis for fast, in-memory data access (e.g., to quickly retrieve a user’s cart).
-
-3.4 Order Management Service
-•	Handles order processing, history, and tracking.
-•	Uses MySQL.
-•	Communicates with Payment Service and User Management Service through Kafka for order status updates, payment verifications, etc.
-
-3.5 Payment Service
-•	Manages payment gateways and transaction logs.
-•	Uses MySQL.
-•	Once the payment is confirmed, it produces a message on Kafka to notify the Order Management Service.
-
-3.6 Notification Service:
-•	Manages email and potentially other notifications (e.g., SMS).
-•	Consumes Kafka messages for events that require user notifications (like registration confirmations, order updates).
-•	Integrates with third-party platforms like Amazon SES for actual email delivery.
-
-4. Databases
-MySQL: For structured data.
-MongoDB: For flexible, unstructured data.
-
-5. Kafka
-Central message broker allowing asynchronous communication between microservices, ensuring data consistency, and acting as an event store for critical actions.
-
-6. Caching with Redis
-Primarily by Cart Service for faster response times.
-
-7. Elasticsearch
-•	Used by Product Catalog for fast and relevant product searches.
-
-
- 
-Typical Flow with Kafka & Elasticsearch Integration
-
-Part 1
-•	User logs in and searches for a product.
-•	Request reaches LB, then passed to API Gateway.
-•	API Gateway routes the search request to Product Catalog Service.
-•	Product Catalog Service queries Elasticsearch for a fast product search.
-
-Part 2
-•	User adds a product to the cart.
-•	Cart Service produces a message to Kafka about this action.
-
-Part 3
-•	User checks out, triggering the Order Management Service.
-•	After placing the order, a message is sent to Kafka.
-•	Payment Service consumes the Kafka message to process payment.
+---
