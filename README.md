@@ -1,6 +1,7 @@
-# ECommerce-Platform
+# ECommerce-Platform - Product Requirements Document (PRD) and High-Level Design (HLD)
 
-Table of Contents
+## Table of Contents
+1. [l](##lol)
 PRODUCT REQUIREMENTS DOCUMENT (PRD) FOR ECOMMERCE WEBSITE	1
 FUNCTIONAL REQUIREMENTS	1
 1. USER MANAGEMENT	1
@@ -69,6 +70,7 @@ Functional Requirements
 6.2. Session Management: Users should remain logged in for a specified duration or until they decide to log out.
 
 
+## lol 
 
 High-Level Design (HLD) for Ecommerce Website 
 
