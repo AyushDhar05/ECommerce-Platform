@@ -1,4 +1,4 @@
-# Ecommerce Website - Product Requirements Document (PRD) and High-Level Design(HLD)
+# Ecommerce Website - Product Requirements Document(PRD) and High-Level Design(HLD)
 
 ## Table of Contents
 
